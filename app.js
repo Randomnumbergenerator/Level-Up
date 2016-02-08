@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
+
 app.use('/', routes);
 app.use('/users', users);
 
