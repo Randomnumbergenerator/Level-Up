@@ -41,12 +41,13 @@ require('./config/passport')(passport); // pass passport for configuration
 
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully 
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully
 
 
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/fun', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
