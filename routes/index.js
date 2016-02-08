@@ -1,24 +1,32 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../app/models/user');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+
+router.get('/fun', function(req, res, next) {
   console.log('hello');
-  Users.find({}, function(err, results){
+  User.find({}, function(err, results){
     if (err) throw err;
     console.log(results);
   });
-  res.render('index', { title: 'TODO GAME' });
+  res.render('list', { title: 'TODO GAME' });
 });
 
+// "Create" action to create a new concert
+// router.post('/', function(req, res) {
 
+//   var newToDoItem = new item({
+//     : req.body.,
+//     : req.body.,
 
+//   });
 
-
-
-
-
-
+//   concert.save(function(err, item) {
+//     if (err) throw err;
+//     res.status(200).
+//   });
+// });
 
 
 
