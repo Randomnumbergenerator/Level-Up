@@ -7,8 +7,10 @@
 <body>
   <p>this will one day be the page that shows a users to do list.</p>
 
-  <h1><%= user %></h1>
-  <p><%= stuff %></p>
+  <h1><%= user._id %></h1>
+  <% for(var i = 0; i < stuff.length; i++){ %>
+  <p>Task: <%= stuff[i].item %>  Points: <%= stuff[i].points%></p>
+  <% } %>
 
    <form name="addToDo_form" action="/fun" method="POST">
       <input type="text" name="item" placeholder="to-do?">

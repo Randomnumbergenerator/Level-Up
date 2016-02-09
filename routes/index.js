@@ -4,23 +4,29 @@ var User = require('../app/models/user');
 var Item = require('../app/models/doItem');
 
 
+var userID;
 /* GET home page. */
 router.get('/fun', function(req, res, next) {
-  console.log('hello');
+  var req = req;
   var results = 'hello';
   Item.find({}, function(err, items){
     if (err) throw err;
     var results = 'hello';
     User.find({}, function(err, results){
+
       if (err) throw err;
-      console.log(results);
+      // console.log(results);
       result = results[0];
     item = items[0];
-    console.log(item['done']);
-    res.render('list', { title:'holy cow', user: result.local.email, stuff: item.item });
+    // userID = req.user;
+    // console.log(userID);
+    // console.log(item['done']);
+    res.render('list', { title:'holy cow', user : 'bob', stuff: item.item });
     });
   })
 });
+
+
 
 // "Create" action to create a new concert
 router.post('/fun', function(req, res) {
@@ -38,6 +44,14 @@ router.post('/fun', function(req, res) {
     if (err) throw err;
     res.status(200).json(newToDoItem);
   });
+});
+
+// single list view
+router.get('/:id', function(req,res,next) {
+ var id = req.params.id;
+ Item.find({ userID: id }, function(err, items) {
+   res.status(200).json({ items: items });
+ });
 });
 
 
