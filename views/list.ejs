@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <title>yaaaay</title>
 </head>
+
 <body>
   <p>this will one day be the page that shows a users to do list.</p>
-
-
-
-
-
-
+  <h1><%= user %></h1>
+  <p>
+    <% for (i=0; i<stuff.length; i++) { %>
+      <% task = stuff[i]; %>
+      <form action="/fun/<%= task._id %>" method="POST">
+        <input type="checkbox" name="done" value="true" <% if (task.done){ %>
+          <%= 'checked="true"' %>
+        <% }; %>>
+        <input type="text" name="item" value="<%= task.item %>">
+        <input type="submit" class="btn" value="Save">
+      </form>
+      <form action="/fun/delete/<%= task._id %>" method="POST">
+        <input type="submit" class="btn btn-danger" value="Delete">
+      </form>
+    <% }; %>
+  </p>
+  <form name="addToDo_form" action="/fun" method="POST">
+    <input type="text" name="item" placeholder="to-do?">
+    <input type="text" name="points" placeholder="How many points is this worth">
+    <input type="submit" name="submit">
+  </form>
 </body>
+
 </html>

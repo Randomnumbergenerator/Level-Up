@@ -9,7 +9,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-var routes = require('./routes/index');
+// var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
@@ -35,16 +35,20 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 //connecting to mongolab
-mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
+// mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
+mongoose.connect(process.env.todo);
 
 require('./config/passport')(passport); // pass passport for configuration
 
 
 // routes ======================================================================
-app.use('/', routes);
-app.use('/users', users);
-app.use('/fun', routes);
+// var routes = require('./routes/index')(app, passport);
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully
+
+
+// app.use('/', routes);
+// app.use('/users', users);
+// app.use('/fun', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

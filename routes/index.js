@@ -1,37 +1,49 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
+var Item = require('../app/models/doItem');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Level Up' });
-});
+module.exports = function(app, passport) {
 
-router.get('/fun', function(req, res, next) {
-  console.log('hello');
-  User.find({}, function(err, results){
-    if (err) throw err;
-    console.log(results);
+  /* GET home page. */
+  app.get('/fun', function(req, res, next) {
+
+    // res.json(req.user);
+    
+    console.log('hello');
+    var results = 'hello';
+    Item.find({}, function(err, items){
+      if (err) throw err;
+      var results = 'hello';
+      User.find({}, function(err, results){
+        if (err) throw err;
+        console.log(results);
+        result = results[0];
+      item = items[0];
+      console.log(item['done']);
+      res.render('list', { title:'holy cow', user: result.local.email, stuff: item.item });
+      });
+    })
   });
-  res.render('list', { title: 'TODO GAME' });
-});
 
-// "Create" action to create a new concert
-// router.post('/', function(req, res) {
+  // "Create" action to create a new concert
+  router.post('/', function(req, res) {
 
-//   var newToDoItem = new item({
-//     : req.body.,
-//     : req.body.,
-
-//   });
-
-//   concert.save(function(err, item) {
-//     if (err) throw err;
-//     res.status(200).
-//   });
-// });
+    var newToDoItem = new Item({
+      item: req.body.item,
+      points: req.body.points,
+      done: false,
+      userID: '56ba0cdf44a6fdf868a41e36'
 
 
+    });
+
+    newToDoItem.save(function(err, newToDoItem) {
+      if (err) throw err;
+      res.status(200).json(newToDoItem);
+    });
+  });
 
 
-module.exports = router;
+return router;
+};
