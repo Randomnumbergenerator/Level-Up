@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-
-
-
 var itemSchema = new mongoose.Schema({
     item: { type: String, required: true},
     points: {type: Number, required: true},
@@ -10,7 +7,5 @@ var itemSchema = new mongoose.Schema({
     listId: {type: mongoose.Schema.Types.ObjectId, ref: 'List'}
 
 });
-
-
 
 module.exports = mongoose.model('Item', itemSchema);

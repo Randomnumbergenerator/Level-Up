@@ -9,8 +9,6 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-// var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -23,28 +21,34 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
-app.use(session({ secret: 'YOURSECRETHERE' })); // session secret
+app.use(session({
+  secret: 'YOURSECRETHERE'
+})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 //connecting to mongolab
-// mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
 mongoose.connect(process.env.todo);
 
 require('./config/passport')(passport); // pass passport for configuration
 
 
 // routes ======================================================================
-// var routes = require('./routes/index')(app, passport);
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully
+var lists = require('./routes/api/lists');
+var tasks = require('./routes/api/tasks');
 
+app.use('/api/lists', lists);
+app.use('/api/tasks', tasks);
 
 // app.use('/', routes);
 // app.use('/users', users);

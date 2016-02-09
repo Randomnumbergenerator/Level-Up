@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var Task = require('../../models/task');
+var Task = require('../../app/models/task');
 
 // "Index" action to list all tasks
 router.get('/', function(req, res) {
-
-  Task.find({}, function(err, results) {
+  var listId = req.body.listId;
+  Task.find({ listId: listId }, function(err, tasks) {
     if (err) {
       console.log(err);
       throw err;
     }
-    res.status(200).json(results);
+    res.status(200).json(tasks);
   });
 
 });
@@ -33,16 +33,12 @@ router.get('/:id', function(req, res) {
 // "Create" action to create a new task
 router.post('/', function(req, res) {
   // @todo change from use to list ref
-  var user = req.user;
 
-  var newToDoItem = new Item({
+  var task = new Task({
     item: req.body.item,
     points: req.body.points,
-    done: false,
-    userID: user._id
-
+    listId: req.body.listId
   });
-
 
   task.save(function(err, task) {
     if (err) {
@@ -57,8 +53,7 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
 
   Task.findByIdAndUpdate(req.params.id, {
-    done: req.body.done,
-    item: req.body.item
+    done: req.body.done
   }, function(err, task) {
     if (err) {
       console.log(err);
