@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
-var Item = require('../app/models/doItem');
+var Item = require('../app/models/task');
 
 module.exports = function(app, passport) {
 
@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
   app.get('/fun', function(req, res, next) {
 
     // res.json(req.user);
-    
+
     console.log('hello');
     var results = 'hello';
     Item.find({}, function(err, items){

@@ -1,5 +1,7 @@
+var express = require('express');
+var router = express.Router();
 var User = require('../app/models/user');
-var Item = require('../app/models/doItem');
+var Item = require('../app/models/task');
 
 module.exports = function(app, passport) {
   // var index = require('../routes/index')(app, passport);
@@ -137,7 +139,7 @@ module.exports = function(app, passport) {
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-  // if user is authenticated in the session, carry on 
+  // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
     return next();
 

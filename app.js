@@ -43,7 +43,7 @@ require('./config/passport')(passport); // pass passport for configuration
 
 // routes ======================================================================
 // var routes = require('./routes/index')(app, passport);
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully
+require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully
 
 
 // app.use('/', routes);
