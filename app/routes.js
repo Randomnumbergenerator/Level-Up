@@ -14,14 +14,16 @@ module.exports = function(app, passport) {
   });
 
   app.get('/fun', isLoggedIn, function(req, res, next) {
-    Item.find({ userID: req.user._id }, function(err, items) {
+    Item.find({
+      userID: req.user._id
+    }, function(err, items) {
       if (err) throw err;
 
-      item = items[0].item || 'No tasks here';
+      console.log(items);
       res.render('list', {
         title: 'holy cow',
         user: req.user.local.email,
-        stuff: item
+        stuff: items
       });
     })
   });
@@ -35,7 +37,6 @@ module.exports = function(app, passport) {
       done: false,
       userID: user._id
 
-
     });
 
     newToDoItem.save(function(err, newToDoItem) {
@@ -43,6 +44,24 @@ module.exports = function(app, passport) {
       res.status(200).json(newToDoItem);
     });
   });
+
+  app.post('/fun/:id', function(req, res, next) {
+    var done = req.body.done;
+    var item = req.body.item;
+    update = {
+      $set: {
+        done: done,
+        item: item
+      }
+    };
+    console.log(update);
+    Item.findByIdAndUpdate({
+      _id: req.params.id
+    }, update, function(err, item) {
+        res.json(item);
+    });
+  })
+
   // =====================================
   // LOGIN ===============================
   // =====================================
