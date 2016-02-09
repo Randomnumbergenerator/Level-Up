@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
     }, function(err, items) {
       if (err) throw err;
 
-      console.log(items);
+      // console.log(items);
       res.render('list', {
         title: 'holy cow',
         user: req.user.local.email,
@@ -58,9 +58,19 @@ module.exports = function(app, passport) {
     Item.findByIdAndUpdate({
       _id: req.params.id
     }, update, function(err, item) {
-        res.json(item);
+      if (err) throw err;
+      res.json(item);
     });
   })
+
+  app.post('/fun/delete/:id', function(req, res, next) {
+    var id = req.params.id;
+    Item.findByIdAndRemove(id, function(err, item) {
+      if (err) throw err;
+      res.json("Deleted task with id: " + id);
+    });
+  })
+
 
   // =====================================
   // LOGIN ===============================

@@ -13,14 +13,17 @@
   <p>
     <% for (i=0; i<stuff.length; i++) { %>
       <% task = stuff[i]; %>
-        <form action="/fun/<%= task._id %>" method="POST">
-          <input type="checkbox" name="done" value="true" <% if (task.done){ %>
+      <form action="/fun/<%= task._id %>" method="POST">
+        <input type="checkbox" name="done" value="true" <% if (task.done){ %>
           <%= 'checked="true"' %>
-            <% }; %>>
-              <input type="text" name="item" value="<%= task.item %>">
-              <input type="submit" class="btn" value="Save">
-        </form>
-      <% }; %>
+        <% }; %>>
+        <input type="text" name="item" value="<%= task.item %>">
+        <input type="submit" class="btn" value="Save">
+      </form>
+      <form action="/fun/delete/<%= task._id %>" method="POST">
+        <input type="submit" class="btn btn-danger" value="Delete">
+      </form>
+    <% }; %>
   </p>
   <form name="addToDo_form" action="/fun" method="POST">
     <input type="text" name="item" placeholder="to-do?">
