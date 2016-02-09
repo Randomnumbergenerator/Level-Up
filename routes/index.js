@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
-var Item = require('../app/models/doitem');
+var Item = require('../app/models/doItem');
+
+
 /* GET home page. */
 router.get('/fun', function(req, res, next) {
   console.log('hello');
   var results = 'hello';
-  Item.find({_id: '56b9427aff7da21664169a38'}, function(err, items){
+  Item.find({}, function(err, items){
     if (err) throw err;
     var results = 'hello';
     User.find({}, function(err, results){
@@ -15,7 +17,7 @@ router.get('/fun', function(req, res, next) {
       result = results[0];
     item = items[0];
     console.log(item['done']);
-    res.render('list', { title:'holy cow', stuff: item.item, user: result.local.email });
+    res.render('list', { title:'holy cow', user: result.local.email, stuff: item.item });
     });
   })
 });
@@ -27,7 +29,7 @@ router.post('/fun', function(req, res) {
     item: req.body.item,
     points: req.body.points,
     done: false,
-    userID: '56b9427aff7da21664169a38'
+    userID: '56ba0cdf44a6fdf868a41e36'
 
 
   });
