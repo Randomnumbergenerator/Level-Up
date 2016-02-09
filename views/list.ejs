@@ -9,6 +9,24 @@
 <body>
   <p>this will one day be the page that shows a users to do list.</p>
   <h1><%= user %></h1>
+
+  <p data-list-id ="<%= toDoList[0]._id%>"><%= toDoList[0].name %>
+    <form action="/fun/<%= toDoList[0]._id %>" method="POST">
+
+        <input type="text" name="item" value="<%= toDoList[0].name %>">
+        <input type="submit" class="btn" value="Save">
+      </form>
+      <form action="/fun/delete/<%= toDoList[0]._id %>" method="POST">
+        <input type="submit" class="btn btn-danger" value="Delete">
+    </form>
+
+  </p>
+
+  <form name="addToDo_form" action="/fun" method="POST">
+    <input type="text" name="item" placeholder="new list?">
+    <input type="submit" name="submit">
+  </form>
+
   <p>
     <% for (i=0; i<stuff.length; i++) { %>
       <% task = stuff[i]; %>
@@ -24,11 +42,17 @@
       </form>
     <% }; %>
   </p>
-  <form name="addToDo_form" action="/fun" method="POST">
+
+   <form name="addToDo_form" action="/fun" method="POST">
     <input type="text" name="item" placeholder="to-do?">
     <input type="text" name="points" placeholder="How many points is this worth">
     <input type="submit" name="submit">
   </form>
+
+
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 </body>
 
 </html>

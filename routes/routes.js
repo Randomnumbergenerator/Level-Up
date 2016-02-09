@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
+var List = require('../app/models/list');
 var Item = require('../app/models/task');
 
 module.exports = function(app, passport) {
@@ -16,35 +17,53 @@ module.exports = function(app, passport) {
   });
 
   app.get('/fun', isLoggedIn, function(req, res, next) {
-    Item.find({
-      userID: req.user._id
-    }, function(err, items) {
+      List.find({
+      userId: req.user._id
+    }, function(err, lists) {
       if (err) throw err;
 
-      // console.log(items);
-      res.render('list', {
-        title: 'holy cow',
-        user: req.user.local.email,
-        stuff: items
+
+      Item.find({
+        listId: req.list_id
+      }, function(err, items) {
+        if (err) throw err;
+
+        // console.log(items);
+        res.render('list', {
+          title: 'holy cow',
+          user: req.user.local.email,
+          stuff: items,
+          toDoList: lists
+        });
       });
-    })
+    });
   });
 
   app.post('/fun', function(req, res) {
     var user = req.user;
+    console.log(user._id);
 
-    var newToDoItem = new Item({
-      item: req.body.item,
-      points: req.body.points,
-      done: false,
-      userID: user._id
-
+    var listItem = new List({
+      name: req.body.item,
+      userId: user._id
     });
 
-    newToDoItem.save(function(err, newToDoItem) {
+    listItem.save(function(err, listItem) {
       if (err) throw err;
-      res.status(200).json(newToDoItem);
+      res.status(200).json(listItem);
     });
+    // var newToDoItem = new Item({
+    //   item: req.body.item,
+    //   points: req.body.points,
+    //   done: false,
+    //   userID: user._id
+
+    // });
+
+    // newToDoItem.save(function(err, newToDoItem) {
+    //   if (err) throw err;
+    //   res.status(200).json(newToDoItem);
+    // });
   });
 
   app.post('/fun/:id', function(req, res, next) {
