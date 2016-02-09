@@ -35,7 +35,8 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 //connecting to mongolab
-mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
+// mongoose.connect("mongodb://"+process.env.QUICKDB_USER+":"+process.env.QUICKDB_PASS+"@ds059135.mongolab.com:59135/quick_brick");
+mongoose.connect(process.env.todo);
 
 require('./config/passport')(passport); // pass passport for configuration
 
