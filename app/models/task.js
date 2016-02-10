@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var itemSchema = new mongoose.Schema({
+var taskSchema = new mongoose.Schema({
     item: { type: String, required: true},
     points: {type: Number, required: true},
     done: { type: Boolean, default: false},
@@ -8,4 +8,4 @@ var itemSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = mongoose.model('Task', taskSchema);

@@ -15,10 +15,8 @@ module.exports = function(app, passport) {
     }, function(err, lists) {
       if (err) throw err;
 
-      res.render('list', {
-        title: 'holy cow',
-        user: req.user,
-        toDoList: lists
+      res.render('profile', {
+        lists: lists
       });
     });
   });
