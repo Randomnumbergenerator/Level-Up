@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
 app.use(session({
-  secret: 'YOURSECRETHERE'
+  secret: process.env.secertKey
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions

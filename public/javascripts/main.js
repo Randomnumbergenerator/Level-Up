@@ -9,7 +9,7 @@ $(function() {
       url: taskApi,
       method: "GET",
       data: {
-        _id: listId
+        listId: listId
       },
       dataType: "JSON"
     })
@@ -29,6 +29,7 @@ $(function() {
       dataType: "JSON"
     })
     .done(function(user) {
+      // gets every todo list that the user has made
       $.ajax({
         url: listApi,
         method: "GET",
@@ -47,6 +48,28 @@ $(function() {
           });
         };
       })
+
+      // gets every todo list that the user has been taged in
+      $.ajax({
+        url: listApi + '/lists',
+        method: "GET",
+        data: {
+         otherUser: user._id
+        },
+        dataType: "JSON"
+      })
+      .done(function(communityList) {
+         for (var i = 0; i < communityList.length; i++) {
+          var list = communityList[i];
+          $('#lists').append('<div class="list" data-list-id="' + list._id + '">' + list.name + '</div>');
+          $('.list').click(function() {
+            var listId = $(this).data('list-id');
+            loadTasks(listId);
+          });
+        };
+
+      })
+
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
       });
@@ -61,8 +84,9 @@ $(function() {
         url: listApi,
         method: 'POST',
         data: {
-          name: 'Test List',
-          userId: '56ba23d4ba27440c0f17f251'
+          name: 'I am beautiful',
+          userId: '56ba23d4ba27440c0f17f251',
+          otherUser: '56ba0cdf44a6fdf868a41e36'
         },
         dataType: 'JSON'
       })
@@ -74,7 +98,7 @@ $(function() {
       })
   }
 
-  $('#testbutton').click(function() {
+  $('#test').click(function() {
     createList();
   });
 

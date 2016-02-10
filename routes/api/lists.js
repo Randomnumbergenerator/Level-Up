@@ -13,7 +13,26 @@ router.get('/', function(req, res, next) {
     }
     res.status(200).json(lists);
   });
+
 });
+
+router.get('/lists', function(req, res, next) {
+  var otherId = req.query.otherUser;
+  console.log(otherId);
+  List.find({
+    otherUser: otherId
+  }, function(err, lists) {
+    console.log('hey');
+    console.log(lists);
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    res.status(200).json(lists);
+  });
+
+});
+
 
 // "Show" action to show one list
 router.get('/:id', function(req, res) {
@@ -35,7 +54,8 @@ router.post('/', function(req, res) {
 
   var list = new List({
     name: req.body.name,
-    userId: req.body.userId
+    userId: req.body.userId,
+    otherUser: '56ba0cdf44a6fdf868a41e36'
   });
 
   list.save(function(err, list) {
