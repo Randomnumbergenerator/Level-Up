@@ -9,7 +9,7 @@ $(function() {
       url: taskApi,
       method: "GET",
       data: {
-        _id: listId
+        listId: listId
       },
       dataType: "JSON"
     })
