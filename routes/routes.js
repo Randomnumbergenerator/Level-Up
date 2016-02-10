@@ -5,21 +5,12 @@ var List = require('../app/models/list');
 var Task = require('../app/models/task');
 
 module.exports = function(app, passport) {
-  // var index = require('../routes/index')(app, passport);
-  // app.use('/fun', index);
-
 
   // =====================================
   // HOME PAGE (with login links) ========
   // =====================================
-  app.get('/', function(req, res) {
-    res.render('index.ejs'); // load the index.ejs file
-  });
-
-// shows the lists
-
-  app.get('/fun', isLoggedIn, function(req, res, next) {
-      List.find({
+  app.get('/', isLoggedIn, function(req, res) {
+    List.find({
       userId: req.user._id
     }, function(err, lists) {
       if (err) throw err;
@@ -32,84 +23,100 @@ module.exports = function(app, passport) {
     });
   });
 
-// to create a new list of tasks
-  app.post('/fun', function(req, res) {
-    var user = req.user;
+// shows the lists
 
-    var listItem = new List({
-      name: req.body.listName,
-      userId: user._id
-    });
+//   app.get('/fun', isLoggedIn, function(req, res, next) {
+//       List.find({
+//       userId: req.user._id
+//     }, function(err, lists) {
+//       if (err) throw err;
 
-    listItem.save(function(err, listItem) {
-      if (err) throw err;
-      res.status(200).json(listItem);
-    });
-  });
+//       res.render('list', {
+//         title: 'holy cow',
+//         user: req.user.local.email,
+//         toDoList: lists
+//       });
+//     });
+//   });
 
+// // to create a new list of tasks
+//   app.post('/fun', function(req, res) {
+//     var user = req.user;
 
-//  to create a new task
-  app.post('/list/:id', function(req, res) {
-    var newTask = new Task({
-      item: req.body.item,
-      points: req.body.points,
-      listId: '56ba62922426bb4a70102464'
+//     var listItem = new List({
+//       name: req.body.listName,
+//       userId: user._id
+//     });
 
-    });
-
-    newTask.save(function(err, newTask) {
-      if (err) throw err;
-      res.status(200).json(newTask);
-    });
-  });
-
-// shows the tasks of the list
-   app.get('/list/:id', isLoggedIn, function(req, res, next) {
-      Task.find({
-          listId: req.params.id
-      }, function(err, items) {
-        if (err) throw err;
-
-        console.log(items);
-        res.render('tasks', {
-          title: 'holy cow',
-          stuff: items,
-        });
-      });
-  });
+//     listItem.save(function(err, listItem) {
+//       if (err) throw err;
+//       res.status(200).json(listItem);
+//     });
+//   });
 
 
-   // I stopped with building out the routes here
+// //  to create a new task
+//   app.post('/list/:id', function(req, res) {
+//     var newTask = new Task({
+//       item: req.body.item,
+//       points: req.body.points,
+//       listId: '56ba62922426bb4a70102464'
+
+//     });
+
+//     newTask.save(function(err, newTask) {
+//       if (err) throw err;
+//       res.status(200).json(newTask);
+//     });
+//   });
+
+// // shows the tasks of the list
+//    app.get('/list/:id', isLoggedIn, function(req, res, next) {
+//       Task.find({
+//           listId: req.params.id
+//       }, function(err, items) {
+//         if (err) throw err;
+
+//         console.log(items);
+//         res.render('tasks', {
+//           title: 'holy cow',
+//           stuff: items,
+//         });
+//       });
+//   });
+
+
+//    // I stopped with building out the routes here
 
 
 
 
 
-  app.post('/fun/:id', function(req, res, next) {
-    var done = req.body.done;
-    var item = req.body.item;
-    update = {
-      $set: {
-        done: done,
-        item: item
-      }
-    };
-    console.log(update);
-    Item.findByIdAndUpdate({
-      _id: req.params.id
-    }, update, function(err, item) {
-      if (err) throw err;
-      res.json(item);
-    });
-  })
+//   app.post('/fun/:id', function(req, res, next) {
+//     var done = req.body.done;
+//     var item = req.body.item;
+//     update = {
+//       $set: {
+//         done: done,
+//         item: item
+//       }
+//     };
+//     console.log(update);
+//     Item.findByIdAndUpdate({
+//       _id: req.params.id
+//     }, update, function(err, item) {
+//       if (err) throw err;
+//       res.json(item);
+//     });
+//   })
 
-  app.post('/fun/delete/:id', function(req, res, next) {
-    var id = req.params.id;
-    Item.findByIdAndRemove(id, function(err, item) {
-      if (err) throw err;
-      res.json("Deleted task with id: " + id);
-    });
-  })
+//   app.post('/fun/delete/:id', function(req, res, next) {
+//     var id = req.params.id;
+//     Item.findByIdAndRemove(id, function(err, item) {
+//       if (err) throw err;
+//       res.json("Deleted task with id: " + id);
+//     });
+//   })
 
 
   // =====================================
@@ -127,7 +134,7 @@ module.exports = function(app, passport) {
   // process the login form
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/profile', // redirect to the secure profile section
+    successRedirect: '/', // redirect to the secure profile section
     failureRedirect: '/login', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
   }));
@@ -182,5 +189,5 @@ function isLoggedIn(req, res, next) {
     return next();
 
   // if they aren't redirect them to the home page
-  res.redirect('/');
+  res.redirect('/login');
 }
