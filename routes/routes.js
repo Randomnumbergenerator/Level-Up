@@ -16,6 +16,8 @@ module.exports = function(app, passport) {
     res.render('index.ejs'); // load the index.ejs file
   });
 
+// shows the lists
+
   app.get('/fun', isLoggedIn, function(req, res, next) {
       List.find({
       userId: req.user._id
@@ -31,23 +33,23 @@ module.exports = function(app, passport) {
   });
 
 // to create a new list of tasks
-  // app.post('/fun', function(req, res) {
-  //   var user = req.user;
+  app.post('/fun', function(req, res) {
+    var user = req.user;
 
-  //   var listItem = new List({
-  //     name: req.body.listName,
-  //     userId: user._id
-  //   });
+    var listItem = new List({
+      name: req.body.listName,
+      userId: user._id
+    });
 
-  //   listItem.save(function(err, listItem) {
-  //     if (err) throw err;
-  //     res.status(200).json(listItem);
-  //   });
-  // });
+    listItem.save(function(err, listItem) {
+      if (err) throw err;
+      res.status(200).json(listItem);
+    });
+  });
 
 
 //  to create a new task
-  app.post('/fun', function(req, res) {
+  app.post('/list/:id', function(req, res) {
     var newTask = new Task({
       item: req.body.item,
       points: req.body.points,
@@ -61,7 +63,7 @@ module.exports = function(app, passport) {
     });
   });
 
-
+// shows the tasks of the list
    app.get('/list/:id', isLoggedIn, function(req, res, next) {
       Task.find({
           listId: '56ba62922426bb4a70102464'
@@ -75,6 +77,12 @@ module.exports = function(app, passport) {
         });
       });
   });
+
+
+   // I stopped with building out the routes here
+
+
+
 
 
   app.post('/fun/:id', function(req, res, next) {
