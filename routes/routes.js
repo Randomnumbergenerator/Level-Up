@@ -66,7 +66,7 @@ module.exports = function(app, passport) {
 // shows the tasks of the list
    app.get('/list/:id', isLoggedIn, function(req, res, next) {
       Task.find({
-          listId: '56ba62922426bb4a70102464'
+          listId: req.params.id
       }, function(err, items) {
         if (err) throw err;
 
