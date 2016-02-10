@@ -13,7 +13,7 @@
   <p data-list-id ="<%= toDoList[0]._id%>"><%= toDoList[0].name %>
     <form action="/fun/<%= toDoList[0]._id %>" method="POST">
 
-        <input type="text" name="item" value="<%= toDoList[0].name %>">
+        <input type="text" name="listName" value="<%= toDoList[0].name %>">
         <input type="submit" class="btn" value="Save">
       </form>
       <form action="/fun/delete/<%= toDoList[0]._id %>" method="POST">
@@ -27,7 +27,7 @@
     <input type="submit" name="submit">
   </form>
 
-  <p>
+  <p> <%= stuff %>
     <% for (i=0; i<stuff.length; i++) { %>
       <% task = stuff[i]; %>
       <form action="/fun/<%= task._id %>" method="POST">

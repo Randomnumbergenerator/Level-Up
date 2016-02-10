@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
 var List = require('../app/models/list');
-var Item = require('../app/models/task');
+var Task = require('../app/models/task');
 
 module.exports = function(app, passport) {
   // var index = require('../routes/index')(app, passport);
@@ -23,12 +23,12 @@ module.exports = function(app, passport) {
       if (err) throw err;
 
 
-      Item.find({
-        listId: req.list_id
+      Task.find({
+          listId: '56ba62922426bb4a70102464'
       }, function(err, items) {
         if (err) throw err;
 
-        // console.log(items);
+        console.log(items);
         res.render('list', {
           title: 'holy cow',
           user: req.user.local.email,
@@ -39,32 +39,38 @@ module.exports = function(app, passport) {
     });
   });
 
+// to create a new list of tasks
+  // app.post('/fun', function(req, res) {
+  //   var user = req.user;
+
+  //   var listItem = new List({
+  //     name: req.body.listName,
+  //     userId: user._id
+  //   });
+
+  //   listItem.save(function(err, listItem) {
+  //     if (err) throw err;
+  //     res.status(200).json(listItem);
+  //   });
+  // });
+
+
+//  to create a new task
   app.post('/fun', function(req, res) {
-    var user = req.user;
-    console.log(user._id);
+    var newTask = new Task({
+      item: req.body.item,
+      points: req.body.points,
+      listId: '56ba62922426bb4a70102464'
 
-    var listItem = new List({
-      name: req.body.item,
-      userId: user._id
     });
 
-    listItem.save(function(err, listItem) {
+    newTask.save(function(err, newTask) {
       if (err) throw err;
-      res.status(200).json(listItem);
+      res.status(200).json(newTask);
     });
-    // var newToDoItem = new Item({
-    //   item: req.body.item,
-    //   points: req.body.points,
-    //   done: false,
-    //   userID: user._id
-
-    // });
-
-    // newToDoItem.save(function(err, newToDoItem) {
-    //   if (err) throw err;
-    //   res.status(200).json(newToDoItem);
-    // });
   });
+
+
 
   app.post('/fun/:id', function(req, res, next) {
     var done = req.body.done;
