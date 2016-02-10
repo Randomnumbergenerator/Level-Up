@@ -40,9 +40,13 @@ $(function() {
       .done(function(data) {
         for (var i = 0; i < data.length; i++) {
           var list = data[i];
-          $('#lists').append('<div class="list" data-list-id="' + list._id + '">' + list.name + '</div>');
+          // $('#lists').append('<div class="list" data-list-id="' + list._id + '">' + list.name + '</div>');
+          $('#lists').append('<div class="col-sm-12" id="' + list._id +
+           '">' + '<div class="well list">' + '<h3><span class="fa fa-user"></span> ' +
+           list.name + ' </h3>' + '</div>' + '</div>');
           $('.list').click(function() {
-            var listId = $(this).data('list-id');
+            console.log("clicked");
+            var listId = $(this).parent().attr('id');
             loadTasks(listId);
           });
         };
