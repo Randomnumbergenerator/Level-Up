@@ -4,7 +4,7 @@ var Task = require('../../app/models/task');
 
 // "Index" action to list all tasks
 router.get('/', function(req, res) {
-  var listId = req.data.listId;
+  var listId = req.query.listId;
   Task.find({ listId: listId }, function(err, tasks) {
     if (err) {
       console.log(err);

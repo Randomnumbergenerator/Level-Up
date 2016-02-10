@@ -3,9 +3,9 @@ var router = express.Router();
 var List = require('../../app/models/list');
 
 router.get('/', function(req, res, next) {
-  var userId = req.body._id;
+  var userId = req.query._id;
   List.find({
-    userId: userId
+    'userId': userId
   }, function(err, lists) {
     if (err) {
       console.log(err);
