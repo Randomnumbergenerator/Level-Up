@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../app/models/user');
-var Item = require('../app/models/task');
+var List = require('../app/models/list');
+var Task = require('../app/models/task');
 
 module.exports = function(app, passport) {
   // var index = require('../routes/index')(app, passport);
@@ -15,37 +16,74 @@ module.exports = function(app, passport) {
     res.render('index.ejs'); // load the index.ejs file
   });
 
+// shows the lists
+
   app.get('/fun', isLoggedIn, function(req, res, next) {
-    Item.find({
-      userID: req.user._id
-    }, function(err, items) {
+      List.find({
+      userId: req.user._id
+    }, function(err, lists) {
       if (err) throw err;
 
-      // console.log(items);
       res.render('list', {
         title: 'holy cow',
         user: req.user.local.email,
-        stuff: items
+        toDoList: lists
       });
-    })
+    });
   });
 
+// to create a new list of tasks
   app.post('/fun', function(req, res) {
     var user = req.user;
 
-    var newToDoItem = new Item({
-      item: req.body.item,
-      points: req.body.points,
-      done: false,
-      userID: user._id
-
+    var listItem = new List({
+      name: req.body.listName,
+      userId: user._id
     });
 
-    newToDoItem.save(function(err, newToDoItem) {
+    listItem.save(function(err, listItem) {
       if (err) throw err;
-      res.status(200).json(newToDoItem);
+      res.status(200).json(listItem);
     });
   });
+
+
+//  to create a new task
+  app.post('/list/:id', function(req, res) {
+    var newTask = new Task({
+      item: req.body.item,
+      points: req.body.points,
+      listId: '56ba62922426bb4a70102464'
+
+    });
+
+    newTask.save(function(err, newTask) {
+      if (err) throw err;
+      res.status(200).json(newTask);
+    });
+  });
+
+// shows the tasks of the list
+   app.get('/list/:id', isLoggedIn, function(req, res, next) {
+      Task.find({
+          listId: req.params.id
+      }, function(err, items) {
+        if (err) throw err;
+
+        console.log(items);
+        res.render('tasks', {
+          title: 'holy cow',
+          stuff: items,
+        });
+      });
+  });
+
+
+   // I stopped with building out the routes here
+
+
+
+
 
   app.post('/fun/:id', function(req, res, next) {
     var done = req.body.done;
