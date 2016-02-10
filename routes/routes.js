@@ -22,19 +22,10 @@ module.exports = function(app, passport) {
     }, function(err, lists) {
       if (err) throw err;
 
-
-      Task.find({
-          listId: '56ba62922426bb4a70102464'
-      }, function(err, items) {
-        if (err) throw err;
-
-        console.log(items);
-        res.render('list', {
-          title: 'holy cow',
-          user: req.user.local.email,
-          stuff: items,
-          toDoList: lists
-        });
+      res.render('list', {
+        title: 'holy cow',
+        user: req.user.local.email,
+        toDoList: lists
       });
     });
   });
@@ -70,6 +61,20 @@ module.exports = function(app, passport) {
     });
   });
 
+
+   app.get('/list/:id', isLoggedIn, function(req, res, next) {
+      Task.find({
+          listId: '56ba62922426bb4a70102464'
+      }, function(err, items) {
+        if (err) throw err;
+
+        console.log(items);
+        res.render('tasks', {
+          title: 'holy cow',
+          stuff: items,
+        });
+      });
+  });
 
 
   app.post('/fun/:id', function(req, res, next) {

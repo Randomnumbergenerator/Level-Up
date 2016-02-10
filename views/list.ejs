@@ -10,7 +10,7 @@
   <p>this will one day be the page that shows a users to do list.</p>
   <h1><%= user %></h1>
 
-  <p data-list-id ="<%= toDoList[0]._id%>"><%= toDoList[0].name %>
+  <p data-list-id ="<%= toDoList[0]._id%>"><a href="/list/<%= toDoList[0]._id%>"><%= toDoList[0].name %>
     <form action="/fun/<%= toDoList[0]._id %>" method="POST">
 
         <input type="text" name="listName" value="<%= toDoList[0].name %>">
@@ -24,28 +24,6 @@
 
   <form name="addToDo_form" action="/fun" method="POST">
     <input type="text" name="item" placeholder="new list?">
-    <input type="submit" name="submit">
-  </form>
-
-  <p> <%= stuff %>
-    <% for (i=0; i<stuff.length; i++) { %>
-      <% task = stuff[i]; %>
-      <form action="/fun/<%= task._id %>" method="POST">
-        <input type="checkbox" name="done" value="true" <% if (task.done){ %>
-          <%= 'checked="true"' %>
-        <% }; %>>
-        <input type="text" name="item" value="<%= task.item %>">
-        <input type="submit" class="btn" value="Save">
-      </form>
-      <form action="/fun/delete/<%= task._id %>" method="POST">
-        <input type="submit" class="btn btn-danger" value="Delete">
-      </form>
-    <% }; %>
-  </p>
-
-   <form name="addToDo_form" action="/fun" method="POST">
-    <input type="text" name="item" placeholder="to-do?">
-    <input type="text" name="points" placeholder="How many points is this worth">
     <input type="submit" name="submit">
   </form>
 
