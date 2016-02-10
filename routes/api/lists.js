@@ -2,6 +2,19 @@ var express = require('express');
 var router = express.Router();
 var List = require('../../app/models/list');
 
+router.get('/', function(req, res, next) {
+  var userId = req.body._id;
+  List.find({
+    userId: userId
+  }, function(err, lists) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    res.status(200).json(lists);
+  });
+});
+
 // "Show" action to show one list
 router.get('/:id', function(req, res) {
 

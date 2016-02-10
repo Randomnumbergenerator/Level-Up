@@ -4,6 +4,37 @@ $(function() {
   var listApi = '/api/lists';
   var taskApi = '/api/tasks';
 
+  function loadLists() {
+    $.ajax({
+      url: "/user_data",
+      method: "GET",
+      data: {},
+      dataType: "JSON"
+    })
+    .done(function(user) {
+      console.log(user);
+      $.ajax({
+        url: listApi,
+        method: "GET",
+        data: {
+          _id: user._id
+        },
+        dataType: "JSON"
+      })
+      .done(function(data) {
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i]);
+        };
+      })
+      .fail(function(jqXHR, textStatus) {
+        console.log('Request failed: ' + textStatus);
+      });
+    })
+    .fail(function(jqXHR, textStatus) {
+      console.log("Request failed: " + textStatus);
+    });
+  }
+
   function createList() {
     $.ajax({
         url: listApi,
@@ -26,4 +57,6 @@ $(function() {
     createList();
   });
 
+
+  loadLists();
 });
