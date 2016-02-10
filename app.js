@@ -8,13 +8,15 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var exphbs  = require('express-handlebars');
 
 
 var app = express();
 
 // view engine setup
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'handlebars');
 
 
 // uncomment after placing your favicon in /public
