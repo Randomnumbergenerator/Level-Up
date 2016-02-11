@@ -2,6 +2,10 @@
   <div class="page-header text-center">
     <h1>Time To Level Up</h1>
   </div>
+  <form id="newList" action="/" method="POST">
+    <input type="text" name="item" id="listName" placeholder="New to-do list?">
+    <input type="submit" name="submit">
+  </form>
   <div id="lists" class="row">
     {{#each lists}}
     <div class="col-sm-12 list" data-list="{{ this._id }}">
@@ -37,23 +41,23 @@
 
 <script id='task-template'>
 
-{{#each tasks}} 
+{{#each tasks}}
   <div>{{ task.item }}</div>
   <tr>
     <td>
       <div class="checkbox">
         <label>
           <input type="checkbox">
-        </label> 
-      </div> 
-    </td> 
-    <td> 
-      {{ this.item }} 
-    </td> 
-    <td> 
-      {{ this.points }} 
-    </td> 
-  </tr> 
+        </label>
+      </div>
+    </td>
+    <td>
+      {{ this.item }}
+    </td>
+    <td>
+      {{ this.points }}
+    </td>
+  </tr>
 {{/each}}
 
 </script>
