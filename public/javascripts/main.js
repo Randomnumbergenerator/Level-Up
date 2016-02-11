@@ -1,22 +1,5 @@
 $(function() {
-  var user;
 
-$.ajax({
-      url: "/user_data",
-      method: "GET",
-      data: {},
-      dataType: "JSON"
-    })
-    .done(function(user) {
-      user = user
-      console.log(user);
-    })
-    .fail(function(jqXHR, textStatus) {
-      console.log("Request failed: " + textStatus);
-    });
-
-  var taskTemplateScript = $("#task-template").html();
-  var taskTemplate = Handlebars.compile(taskTemplateScript);
 
 
   var listApi = '/api/lists';
@@ -94,12 +77,26 @@ $.ajax({
   //   });
   // }
 
-  $('#newList').submit(function(){
-    var name = $('listName').val();
-    var id = user._id;
-    createList(name, id);
-    return false;
-  })
+  $.ajax({
+      url: "/user_data",
+      method: "GET",
+      data: {},
+      dataType: "JSON"
+    })
+    .done(function(user) {
+      console.log(user);
+      $('#newList').submit(function(){
+        var name = $('#listName').val();
+        var id = user._id;
+        console.log(id);
+        createList(name, id);
+        return false;
+      })
+    })
+    .fail(function(jqXHR, textStatus) {
+      console.log("Request failed: " + textStatus);
+    });
+
 
   function createList(newListName, userId) {
     var name = newListName;
