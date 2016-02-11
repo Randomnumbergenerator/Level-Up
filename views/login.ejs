@@ -5,6 +5,8 @@
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css" />
     <style>
         body        { padding-top:80px; }
     </style>
@@ -24,11 +26,11 @@
     <!-- LOGIN FORM -->
     <form action="/login" method="post">
         <div class="form-group">
-            <label>Email</label>
+            <labe style="color:orange">Email</label>
             <input type="text" class="form-control" name="email">
         </div>
         <div class="form-group">
-            <label>Password</label>
+            <label style="color:orange">Password</label>
             <input type="password" class="form-control" name="password">
         </div>
 
@@ -37,8 +39,8 @@
 
     <hr>
 
-    <p>Need an account? <a href="/signup">Signup</a></p>
-    <p>Or go <a href="/">home</a>.</p>
+    <p style="color:orange">Need an account? <a href="/signup">Signup</a></p>
+    <p style="color:orange">Or go <a href="/">home</a>.</p>
 
 </div>
 
