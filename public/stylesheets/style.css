@@ -32,3 +32,8 @@ h1 {
   background-color: #15a6d9;
   color: orange;
 }
+
+.btn:hover {
+  background-color: orange;
+  color: #15a6d9;
+}
