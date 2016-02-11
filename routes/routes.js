@@ -34,7 +34,8 @@ module.exports = function(app, passport) {
 
             res.render('profile', {
               lists: lists,
-              tasks: tasks
+              tasks: tasks,
+              user: JSON.stringify(req.user)
             });
           });
       });

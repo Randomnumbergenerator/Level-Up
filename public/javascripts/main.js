@@ -2,6 +2,7 @@ $(function() {
 
 
 
+
   var listApi = '/api/lists/';
   var taskApi = '/api/tasks/';
 
@@ -77,23 +78,20 @@ $(function() {
   //   });
   // }
 
-  $.ajax({
-      url: "/user_data",
-      method: "GET",
-      data: {},
-      dataType: "JSON"
-    })
-    .done(function(user) {
+
+
 
       // to create a new list
       // on click of submit for new to-do list call the creatList function
-      $('#newList').submit(function(){
-        var name = $('#listName').val();
-        var id = user._id;
-        console.log(id);
-        createList(name, id);
-        return false;
-      })
+
+    $('#newList').submit(function(){
+      var name = $('#listName').val();
+      var id = userJson._id;
+      createList(name, id);
+      return false;
+    })
+
+
 
 
       // @todo delete a list
@@ -105,10 +103,6 @@ $(function() {
       })
 
 
-    })
-    .fail(function(jqXHR, textStatus) {
-      console.log("Request failed: " + textStatus);
-    });
 
 
   function createList(newListName, userId) {
@@ -124,8 +118,12 @@ $(function() {
         dataType: 'JSON'
       })
       .done(function(list) {
-        console.log(list);
-
+        var newList = [list];
+        var context = { lists: newList };
+        $.get('templates/list.handlebars', function (data) {
+          var template=Handlebars.compile(data);
+          $('#lists').prepend(template(context));
+        }, 'html');
       })
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
