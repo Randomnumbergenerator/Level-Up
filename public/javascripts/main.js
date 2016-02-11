@@ -46,14 +46,27 @@ $(function() {
     return false;
   })
 
-  // @todo delete a list
-  function deleteListener() {
+  function listListeners() {
     $('.deleteBtn').click(function() {
       var listId = $(this).data('list-id');
       console.log(listId);
       deleteList(listId);
       return false;
-    })
+    });
+
+    $('.newTask').submit(function() {
+      var item = $(this).children("input[name=task]").val();
+      console.log(item);
+      var id = $(this).children("input[name=listId]").val();
+      var points = $(this).children("select[name=points]").val();
+      newTask(item, points, id);
+      return false;
+    });
+
+    $('.tasks-list').on('show.bs.collapse', function() {
+      var listId = $(this).parent().attr('id');
+      loadTasks(listId);
+    });
   };
 
   function taskListeners() {
@@ -135,7 +148,7 @@ $(function() {
         $.get('templates/list.handlebars', function(data) {
           var template = Handlebars.compile(data);
           $('#lists').prepend(template(context));
-          deleteListener();
+          listListeners();
         }, 'html');
       })
       .fail(function(jqXHR, textStatus) {
@@ -175,20 +188,5 @@ $(function() {
       })
   }
 
-  $('.tasks-list').on('show.bs.collapse', function() {
-    var listId = $(this).parent().attr('id');
-    loadTasks(listId);
-  });
-
-  $('.newTask').submit(function() {
-    var item = $(this).children("input[name=task]").val();
-    var id = $(this).children("input[name=listId]").val();
-    var points = $(this).children("select[name=points]").val();
-    newTask(item, points, id);
-    return false;
-  });
-
-
-  // loadLists();
-  deleteListener();
+  listListeners();
 });
