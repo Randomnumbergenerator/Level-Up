@@ -2,8 +2,8 @@ $(function() {
 
 
 
-  var listApi = '/api/lists';
-  var taskApi = '/api/tasks';
+  var listApi = '/api/lists/';
+  var taskApi = '/api/tasks/';
 
   function loadTasks(listId) {
     $.ajax({
@@ -84,7 +84,9 @@ $(function() {
       dataType: "JSON"
     })
     .done(function(user) {
-      console.log(user);
+
+      // to create a new list
+      // on click of submit for new to-do list call the creatList function
       $('#newList').submit(function(){
         var name = $('#listName').val();
         var id = user._id;
@@ -92,6 +94,17 @@ $(function() {
         createList(name, id);
         return false;
       })
+
+
+      // @todo delete a list
+      $('.deleteBtn').click(function(){
+        var listId = $(this).data('list-id');
+        console.log(listId);
+        deleteList(listId);
+        return false;
+      })
+
+
     })
     .fail(function(jqXHR, textStatus) {
       console.log("Request failed: " + textStatus);
@@ -119,6 +132,23 @@ $(function() {
       })
   }
 
+  function deleteList(listId) {
+    var listId = listId;
+    $.ajax({
+        url: listApi + listId,
+        method: 'delete',
+        data: {
+        },
+        dataType: 'JSON'
+      })
+      .done(function(list) {
+        console.log(list);
+      })
+      .fail(function(jqXHR, textStatus) {
+        console.log('Request failed: ' + textStatus);
+      })
+  }
+
 
   // $('.list').click(function() {
   //   console.log("clicked");
@@ -126,16 +156,18 @@ $(function() {
   //   loadTasks(listId);
   // });
 
-  $('.tasks-list').on('show.bs.collapse', function() {
-    var listId = $(this).parent().attr('id');
-    console.log(listId);
-    loadTasks(listId);
+  // $('.tasks-list').on('show.bs.collapse', function() {
+  //   var listId = $(this).parent().attr('id');
+  //   console.log(listId);
+  //   loadTasks(listId);
+  // });
+
+  $('form').submit(function() {
+    var item = $(this).children("input[name=task]").val();
+    var id = $(this).children("input[name=listId]").val();
+    var points = $(this).children("select[name=points]").val();
   });
 
-  // $('form').submit(function() {
-  //   var item = $(this).children("input[name=task]").val();
-  //   var id = $(this).children("input[name=listId]").val();
-  //   var points = $(this).children("select[name=points]").val();
 
   //   $.ajax({
   //     url: taskApi,
