@@ -51,24 +51,7 @@ $(function() {
       deleteList(listId);
       return false;
     })
-<<<<<<< HEAD
   };
-=======
-
-
-
-
-      // delete a list
-      $('.deleteBtn').click(function(){
-        var listId = $(this).data('list-id');
-        console.log(listId);
-        deleteList(listId);
-        return false;
-      })
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
-
-
-
 
   function createList(newListName, userId) {
     var name = newListName;
@@ -114,27 +97,14 @@ $(function() {
       })
   }
 
-<<<<<<< HEAD
-=======
 
-  // $('.list').click(function() {
-  //   console.log("clicked");
-  //   var listId = $(this).data('list');
-  //   loadTasks(listId);
-  // });
-
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
   $('.tasks-list').on('show.bs.collapse', function() {
     var listId = $(this).parent().attr('id');
     console.log(listId);
     loadTasks(listId);
   });
-<<<<<<< HEAD
-=======
 
   $('.newTask').submit(function() {
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
-
     var item = $(this).children("input[name=task]").val();
     var id = $(this).children("input[name=listId]").val();
     var points = $(this).children("select[name=points]").val();
