@@ -2,7 +2,7 @@ $(function() {
   var taskTemplateScript = $("#task-template").html();
 
   var taskTemplate = Handlebars.compile(taskTemplateScript);
-  console.log("DOM loaded, son.");
+  console.log(taskTemplate);
 
   var listApi = '/api/lists';
   var taskApi = '/api/tasks';
@@ -17,10 +17,12 @@ $(function() {
       dataType: "JSON"
     })
     .done(function(tasks) {
-      console.log(tasks);
+
+
       var context = { tasks: tasks };
       var theCompiledHtml = taskTemplate(context);
-      $('#accordian_'+listId).prepend(theCompiledHtml);
+      console.log(theCompiledHtml);
+      $('#accordion_'+listId).empty().prepend(theCompiledHtml);
     })
     .fail(function(jqXHR, textStatus) {
       console.log("Request failed: " + textStatus);

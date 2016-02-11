@@ -3,6 +3,13 @@ var router = express.Router();
 var User = require('../app/models/user');
 var List = require('../app/models/list');
 var Task = require('../app/models/task');
+var listQuery = List.find({});
+var taskQuery = Task.find({});
+
+String.prototype.toObjectId = function() {
+  var ObjectId = (require('mongoose').Types.ObjectId);
+  return new ObjectId(this.toString());
+};
 
 module.exports = function(app, passport) {
 
@@ -10,21 +17,36 @@ module.exports = function(app, passport) {
   // HOME PAGE (with login links) ========
   // =====================================
   app.get('/', isLoggedIn, function(req, res) {
-    List.find({
-      userId: req.user._id
-    }, function(err, lists) {
-      if (err) throw err;
 
-      res.render('profile', {
-        lists: lists
+    listQuery
+      .where('userId', req.user._id)
+      .exec(function(err, lists) {
+        if (err) throw err;
+        var listArr = [];
+        for (var i = lists.length - 1; i >= 0; i--) {
+          var listsId = lists[i]._id;
+          console.log(listsId);
+          // var listId = listsId.toObjectId();
+          listArr.push(listsId);
+        }
+        taskQuery
+          .where('listId').in(listArr)
+          .exec(function(err, tasks) {
+
+            res.render('profile', {
+              lists: lists,
+              tasks: tasks
+            });
+          });
       });
-    });
   });
 
 
   app.get('/user_data', function(req, res, next) {
     var userId = req.user._id;
-    User.findOne({ _id: userId }, function(err, user) {
+    User.findOne({
+      _id: userId
+    }, function(err, user) {
       if (err) {
         console.log(err);
         throw err;
