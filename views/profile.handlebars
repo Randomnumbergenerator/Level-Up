@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="page-header text-center">
+    <h1>Time To Level Up</h1>
+  </div>
+  <div id="lists" class="row">
+    {{#each lists}}
+    <div class="col-sm-12 list" data-list="{{ this._id }}">
+      <div class="well">
+        <table id="{{ this._id }}" class="table table-hover">
+          <thead data-toggle="collapse" data-target="#accordion_{{ this._id }}" class="clickable">
+            <th colspan="3">{{ this.name }}</th>
+          </thead>
+          <tbody id="accordion_{{ this._id }}" class="collapse tasks-list">
+            {{!-- {{{ tasks }}} --}}
+            <tr>
+              <td colspan="3">
+                <form class="form-inline" name="new_task_form" action="/api/tasks" method="POST">
+                  <input name="task" type="text" placeholder="New Task..." />
+                  <input name="listId" type="hidden" value="{{ this._id }}">
+ 
+                    <select name="points" class="form-control">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+<script id='task-template'>
+
+{{#each tasks}} 
+  <div>{{ task.item }}</div>
+  <tr>
+    <td>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox">
+        </label> 
+      </div> 
+    </td> 
+    <td> 
+      {{ this.item }} 
+    </td> 
+    <td> 
+      {{ this.points }} 
+    </td> 
+  </tr> 
+{{/each}}
+
+</script>

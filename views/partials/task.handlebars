@@ -1,0 +1,17 @@
+{{#each tasks}} 
+  <tr>
+    <td>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox">
+        </label> 
+      </div> 
+    </td> 
+    <td> 
+      {{ this.item }} 
+    </td> 
+    <td> 
+      {{ this.points }} 
+    </td> 
+  </tr> 
+{{/each}}

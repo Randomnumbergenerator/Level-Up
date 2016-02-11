@@ -6,9 +6,8 @@
   <title>Node Authentication</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-  <link rel="stylesheet" href="animate.min.css">
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css" />
   <style>
   body {
     padding-top: 40px;
@@ -30,9 +29,9 @@
         </button>
         <a class="navbar-brand" href="#">Team 3K</a>
         <!-- <ul class="navbar-form navbar-right"> -->
-          <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-1">About</button> -->
-          <!-- modal might screw up everything? on click freezes app and renders useless -->
-<!--           <div class="modal" id="modal-1">
+        <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-1">About</button> -->
+        <!-- modal might screw up everything? on click freezes app and renders useless -->
+        <!--           <div class="modal" id="modal-1">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -49,29 +48,29 @@
           </div> -->
         <!-- </ul> -->
       </div>
-
-
       <!-- Collect the nav links, forms, and other content for toggling -->
-
-
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="navbar-form navbar-right">
           <a href="/logout" class="btn btn-success">Logout</a>
         </ul>
         <ul class="navbar-form navbar-right">
-          <div><%= user.local.email %></div>
+          <div>
+            <%= user.local.email %>
+          </div>
         </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
   </nav>
   <div class="container">
     <div class="page-header text-center">
       <h1>Time To Level Up</h1>
       <!-- <a href="/logout" class="btn btn-default btn-sm">Logout</a> -->
     </div>
-    <div class="row">
+    <div id="lists" class="row">
       <!-- LOCAL INFORMATION -->
-      <div class="col-sm-12">
+      <!--      <div class="col-sm-12">
         <div class="well">
           <h3><span class="fa fa-user"></span> Lists and Shit! </h3>
         </div>
@@ -95,14 +94,32 @@
         <div class="well">
           <h3><span class="fa fa-user"></span> Please kill me </h3>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
-
-
-<script type="text/javascript" src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/javascripts/main.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/javascripts/main.js"></script>
 </body>
 
 </html>
+
+
+<!-- <table class="table table-hover">
+    <thead>
+        <th></th><th></th><th></th>
+    </thead>
+    
+    <tbody>
+        <tr data-toggle="collapse" data-target="#accordion" class="clickable">
+            <td>Some Stuff</td>
+            <td>Some more stuff</td>
+            <td>And some more</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div id="accordion" class="collapse">Hidden by default</div>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
