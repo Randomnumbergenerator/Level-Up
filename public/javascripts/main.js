@@ -2,6 +2,28 @@ $(function() {
 
   var listApi = '/api/lists/';
   var taskApi = '/api/tasks/';
+  var quoteApi = 'http://www.stands4.com/services/v2/quotes.php'
+
+  $.ajax({
+    method: "GET",
+    url: quoteApi,
+    data: {
+      uid: '4840',
+      tokenid: 'vdd0Lpy8OmyazMor',
+      searchtype: 'random',
+      query: 'motivation'
+
+    },
+    dataType: 'html'
+  })
+  .done(function(data){
+    console.log(data);
+    // var oneQuote = Math.floor(Math.random()* (data.length -1)) +1;
+    $('#quote').html(data);
+  })
+  .fail(function(jqXHR, textStatus) {
+        console.log("Request failed: " + textStatus);
+  });
 
   function loadTasks(listId) {
     $.ajax({
@@ -51,21 +73,8 @@ $(function() {
       deleteList(listId);
       return false;
     })
-<<<<<<< HEAD
+
   };
-=======
-
-
-
-
-      // delete a list
-      $('.deleteBtn').click(function(){
-        var listId = $(this).data('list-id');
-        console.log(listId);
-        deleteList(listId);
-        return false;
-      })
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
 
 
 
@@ -114,26 +123,17 @@ $(function() {
       })
   }
 
-<<<<<<< HEAD
-=======
 
-  // $('.list').click(function() {
-  //   console.log("clicked");
-  //   var listId = $(this).data('list');
-  //   loadTasks(listId);
-  // });
 
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
+
   $('.tasks-list').on('show.bs.collapse', function() {
     var listId = $(this).parent().attr('id');
     console.log(listId);
     loadTasks(listId);
   });
-<<<<<<< HEAD
-=======
+
 
   $('.newTask').submit(function() {
->>>>>>> c3871be84193f278101f3de0f08e1f56b324c55f
 
     var item = $(this).children("input[name=task]").val();
     var id = $(this).children("input[name=listId]").val();
