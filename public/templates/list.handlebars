@@ -1,0 +1,29 @@
+{{#each lists}}
+  <div class="col-sm-12 list" data-list="{{ this._id }}">
+    <div class="well">
+      <table id="{{ this._id }}" class="table table-hover">
+        <thead data-toggle="collapse" data-target="#accordion_{{ this._id }}" class="clickable">
+          <th>{{ this.name }}</th>
+          <th colspan="2">
+            <form class="form-inline" name="new_task_form" action="/api/tasks" method="POST">
+              <input name="task" type="text" placeholder="New Task..." />
+              <input name="listId" type="hidden" value="{{ this._id }}">
+
+                <select name="points" class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+            </form>
+          </th>
+        </thead>
+        <tbody id="accordion_{{ this._id }}" class="collapse tasks-list">
+          {{!-- {{{ tasks }}} --}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{{/each}}
