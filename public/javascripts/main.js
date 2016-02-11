@@ -40,9 +40,10 @@ $.ajax({
       };
 
       var context = { tasks: releventTasks };
-      console.log(context);
-      var theCompiledHtml = taskTemplate(context);
-      $('#accordion_'+listId).empty().append(theCompiledHtml);
+      $.get('templates/task.handlebars', function (data) {
+        var template=Handlebars.compile(data);
+        $('#accordion_'+listId).empty().append(template(context));
+      }, 'html');
     })
     .fail(function(jqXHR, textStatus) {
       console.log("Request failed: " + textStatus);
