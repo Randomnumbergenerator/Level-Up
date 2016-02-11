@@ -1,4 +1,20 @@
 $(function() {
+  var user;
+
+$.ajax({
+      url: "/user_data",
+      method: "GET",
+      data: {},
+      dataType: "JSON"
+    })
+    .done(function(user) {
+      user = user
+      console.log(user);
+    })
+    .fail(function(jqXHR, textStatus) {
+      console.log("Request failed: " + textStatus);
+    });
+
   var taskTemplateScript = $("#task-template").html();
   var taskTemplate = Handlebars.compile(taskTemplateScript);
 
@@ -35,12 +51,12 @@ $(function() {
   }
 
   // function loadLists() {
-  //   $.ajax({
-  //     url: "/user_data",
-  //     method: "GET",
-  //     data: {},
-  //     dataType: "JSON"
-  //   })
+    // $.ajax({
+    //   url: "/user_data",
+    //   method: "GET",
+    //   data: {},
+    //   dataType: "JSON"
+    // })
   //   .done(function(user) {
   //     $.ajax({
   //       url: listApi,
@@ -61,13 +77,13 @@ $(function() {
 
   //       // Add the compiled html to the page
   //       $('#lists').append(theCompiledHtml);
-        
+
   //       $('.list').click(function() {
   //         console.log("clicked");
   //         var listId = $(this).parent().attr('id');
   //         loadTasks(listId);
   //       });
-        
+
   //     })
   //     .fail(function(jqXHR, textStatus) {
   //       console.log('Request failed: ' + textStatus);
@@ -78,27 +94,34 @@ $(function() {
   //   });
   // }
 
-  function createList() {
+  $('#newList').submit(function(){
+    var name = $('listName').val();
+    var id = user._id;
+    createList(name, id);
+    return false;
+  })
+
+  function createList(newListName, userId) {
+    var name = newListName;
+    var id = userId;
     $.ajax({
         url: listApi,
         method: 'POST',
         data: {
-          name: 'Test List',
-          userId: '56ba23d4ba27440c0f17f251'
+          name: name,
+          userId: id
         },
         dataType: 'JSON'
       })
       .done(function(list) {
         console.log(list);
+
       })
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
       })
   }
 
-  $('#testbutton').click(function() {
-    createList();
-  });
 
   // $('.list').click(function() {
   //   console.log("clicked");
@@ -112,30 +135,30 @@ $(function() {
     loadTasks(listId);
   });
 
-  $('form').submit(function() {
-    var item = $(this).children("input[name=task]").val();
-    var id = $(this).children("input[name=listId]").val();
-    var points = $(this).children("select[name=points]").val();
+  // $('form').submit(function() {
+  //   var item = $(this).children("input[name=task]").val();
+  //   var id = $(this).children("input[name=listId]").val();
+  //   var points = $(this).children("select[name=points]").val();
 
-    $.ajax({
-      url: taskApi,
-      method: "POST",
-      data: {
-        item: item,
-        points: points,
-        listId: id
-      },
-      dataType: "JSON"
-    })
-    .done(function(task) {
-      console.log(task);
-    })
-    .fail(function(jqXHR, textStatus) {
-      console.log("Request failed: " + textStatus);
-    });
+  //   $.ajax({
+  //     url: taskApi,
+  //     method: "POST",
+  //     data: {
+  //       item: item,
+  //       points: points,
+  //       listId: id
+  //     },
+  //     dataType: "JSON"
+  //   })
+  //   .done(function(task) {
+  //     console.log(task);
+  //   })
+  //   .fail(function(jqXHR, textStatus) {
+  //     console.log("Request failed: " + textStatus);
+  //   });
 
-    return false;
-  })
+  //   return false;
+  // })
 
   // loadLists();
 });

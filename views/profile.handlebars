@@ -2,6 +2,10 @@
   <div class="page-header text-center">
     <h1>Time To Level Up</h1>
   </div>
+  <form id="newList" action="/" method="POST">
+    <input type="text" name="item" id="listName" placeholder="New to-do list?">
+    <input type="submit" name="submit">
+  </form>
   <div id="lists" class="row">
     {{#each lists}}
     <div class="col-sm-12 list" data-list="{{ this._id }}">
