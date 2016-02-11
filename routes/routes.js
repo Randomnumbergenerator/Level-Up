@@ -25,7 +25,6 @@ module.exports = function(app, passport) {
         var listArr = [];
         for (var i = lists.length - 1; i >= 0; i--) {
           var listsId = lists[i]._id;
-          console.log(listsId);
           // var listId = listsId.toObjectId();
           listArr.push(listsId);
         }

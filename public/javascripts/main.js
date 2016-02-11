@@ -1,8 +1,7 @@
 $(function() {
   var taskTemplateScript = $("#task-template").html();
-
   var taskTemplate = Handlebars.compile(taskTemplateScript);
-  console.log(taskTemplate);
+
 
   var listApi = '/api/lists';
   var taskApi = '/api/tasks';
@@ -17,12 +16,17 @@ $(function() {
       dataType: "JSON"
     })
     .done(function(tasks) {
+      var releventTasks = [];
+      for (var i = tasks.length - 1; i >= 0; i--) {
+        if (tasks[i].listId == listId) {
+          releventTasks.push(tasks[i]);
+        };
+      };
 
-
-      var context = { tasks: tasks };
+      var context = { tasks: releventTasks };
+      console.log(context);
       var theCompiledHtml = taskTemplate(context);
-      console.log(theCompiledHtml);
-      $('#accordion_'+listId).empty().prepend(theCompiledHtml);
+      $('#accordion_'+listId).empty().append(theCompiledHtml);
     })
     .fail(function(jqXHR, textStatus) {
       console.log("Request failed: " + textStatus);
@@ -103,6 +107,7 @@ $(function() {
 
   $('.tasks-list').on('show.bs.collapse', function() {
     var listId = $(this).parent().attr('id');
+    console.log(listId);
     loadTasks(listId);
   });
 
