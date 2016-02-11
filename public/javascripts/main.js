@@ -13,20 +13,23 @@ $(function() {
         dataType: "JSON"
       })
       .done(function(tasks) {
-        var releventTasks = [];
-        for (var i = tasks.length - 1; i >= 0; i--) {
-          if (tasks[i].listId == listId) {
-            releventTasks.push(tasks[i]);
+        if (tasks !== []) { 
+          console.log(tasks);
+          var releventTasks = [];
+          for (var i = tasks.length - 1; i >= 0; i--) {
+            if (tasks[i].listId == listId) {
+              releventTasks.push(tasks[i]);
+            };
           };
-        };
 
-        var context = {
-          tasks: releventTasks
+          var context = {
+            tasks: releventTasks
+          };
+          $.get('templates/task.handlebars', function(data) {
+            var template = Handlebars.compile(data);
+            $('#accordion_' + listId).empty().append(template(context));
+          }, 'html');
         };
-        $.get('templates/task.handlebars', function(data) {
-          var template = Handlebars.compile(data);
-          $('#accordion_' + listId).empty().append(template(context));
-        }, 'html');
       })
       .fail(function(jqXHR, textStatus) {
         console.log("Request failed: " + textStatus);
@@ -100,7 +103,6 @@ $(function() {
 
   $('.tasks-list').on('show.bs.collapse', function() {
     var listId = $(this).parent().attr('id');
-    console.log(listId);
     loadTasks(listId);
   });
 

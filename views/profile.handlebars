@@ -13,7 +13,7 @@
         <table id="{{ this._id }}" class="table table-hover">
           <thead data-toggle="collapse" data-target="#accordion_{{ this._id }}" class="clickable">
             <th>{{ this.name }}</th>
-            <div class='deleteBtn' data-list-id="{{ this._id }}">DELETE</div>
+            <div class='btn deleteBtn' data-list-id="{{ this._id }}">DELETE</div>
             <th colspan="2">
               <form class="form-inline newTask" name="new_task_form" action="/api/tasks/" method="POST">
                 <input name="task" type="text" placeholder="New Task..." />
