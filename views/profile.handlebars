@@ -2,7 +2,7 @@
   <div class="page-header text-center">
     <h1>Time To Level Up</h1>
   </div>
-  <form id="newList" action="/" method="POST">
+  <form id="newList" action="/api/lists" method="POST">
     <input type="text" name="item" id="listName" placeholder="New to-do list?">
     <input type="submit" name="submit">
   </form>
@@ -38,3 +38,8 @@
     {{/each}}
   </div>
 </div>
+
+
+<script>
+  var userJson = {{{ user }}};
+</script>
