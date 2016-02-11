@@ -41,6 +41,7 @@ input {
   padding: 10px;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
+  font-family: '8BITWONDERNominal'; 
     border-bottom-color: #b3b3b3;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -58,3 +59,22 @@ input {
     border-top-style: solid;
     border-top-width: 1px;`
 }
+
+.deleteBtn {
+  background-color: #15a6d9;
+  color: orange;
+}
+
+#lname {
+  font-size: 25px;
+  text-align: center;
+}
+
+#deletelist {
+  text-align: center;
+}
+
+#form {
+  text-align: center;
+}
+
