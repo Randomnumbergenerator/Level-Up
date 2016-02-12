@@ -17,7 +17,6 @@ $(function() {
     dataType: 'html'
   })
   .done(function(data) {
-    console.log(data);
     // var oneQuote = Math.floor(Math.random()* (data.length -1)) +1;
     $('#quote').html(data);
   })
