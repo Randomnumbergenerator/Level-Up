@@ -1,4 +1,4 @@
-{{#each lists}}
+  {{#each lists}}
   <div class="col-sm-4 list" data-list="{{ this._id }}">
     <div class="well">
       <div id="{{ this._id }}" class="table table-hover">
@@ -13,21 +13,28 @@
         </p>
         <div class="collapse tasks-list" id="collapse_{{ this._id }}">
           <div class="card card-block" id="tasks_{{ this._id }}" data-list-id="{{ this._id }}"></div>
-          <div>
-            <div colspan="2">
-              <form class="form-inline newTask" id="form" name="new_task_form" action="/api/tasks/" method="POST">
-                <input name="task" type="text" placeholder="New Task..." />
-                <input name="listId" type="hidden" value="{{ this._id }}">
-                <select name="points" class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-                <button type="submit" class="btn btn-success btn-sm">Save</button>
-              </form>
-            </div>
+          <div colspan="2">
+            <form class="form-inline newTask" id="form" name="new_task_form" action="/api/tasks/" method="POST">
+              <div class="form-group">
+                {{!-- <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label> --}}
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <select name="points" class="form-control">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <input name="task" type="text" placeholder="New Task..." />
+                  <input name="listId" type="hidden" value="{{ this._id }}">
+                  <div class="input-group-addon">
+                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
