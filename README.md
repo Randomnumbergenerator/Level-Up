@@ -37,7 +37,7 @@ With the ability to share lists while focusing on the gaming community the point
 - Handlebars
 - Jquery
 - Stands4 API (quotes)
-- The Team API (slef rolled)
+- The Team API (self rolled)
 - Ajax
 - Heroku
 
