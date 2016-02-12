@@ -38,6 +38,7 @@ h1 {
 }
 
 input {
+  width: 100%;
   padding: 10px;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
@@ -105,3 +106,20 @@ input {
 #cat {
   margin: 10px;
 }
+
+#stuff {
+  /*margin: 0 auto;*/
+  text-align: center;
+  margin: 10px;
+}
+
+/*#inputtast {
+  text-align: center;
+  max-width: 100px;
+}*/
+
+/*.input-group {
+  display: inline-block;
+  text-align: center;
+  max-width: 100px;
+}*/
