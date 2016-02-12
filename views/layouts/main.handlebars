@@ -30,6 +30,7 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        {{#if user}}
         <ul class="navbar-form navbar-right">
           <a href="/logout" class="btn btn-success">Logout</a>
         </ul>
@@ -38,6 +39,7 @@
             {{{ user.local.email }}}
           </div>
         </ul>
+        {{/if}}
       </div>
       <!-- /.navbar-collapse -->
     </div>
@@ -50,6 +52,10 @@
   <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/javascripts/handlebars-v4.0.5.js"></script>
   <script type="text/javascript" src="/javascripts/main.js"></script>
+  <script>
+    var userJson = {{{ user }}};
+  </script>
+
 </body>
 
 </html>
