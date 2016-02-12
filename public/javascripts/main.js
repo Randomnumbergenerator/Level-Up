@@ -91,7 +91,6 @@ $(function() {
 
     $('.tasks-list').on('show.bs.collapse', function() {
       var listId = $(this).parentsUntil('well').attr('id');
-      console.log(listId);
       loadTasks(listId);
     });
   }
@@ -100,14 +99,13 @@ $(function() {
   function taskListeners() {
     $('.delete').submit(function() {
       var taskId = $(this).data('task-id');
-      console.log(taskId);
       deleteTask(taskId);
       return false;
     });
 
     $('.task-check').bind('change', function() {
+      var listId = $(this).parentsUntil('well').attr('id');
       var taskId = $(this).data('task-id');
-      console.log(taskId);
       if (this.checked) {
         $.ajax({
           url: taskApi + taskId,
@@ -115,7 +113,9 @@ $(function() {
           data: {'done': true}
         })
         .done(function(task) {
-          console.log(task);
+          var newPoints = $('#collapse_' + listId + ' span').text() + task.points;
+          console.log(newPoints);
+          $('#collapse_' + listId + ' span').html(newPoints);
         })
         .fail(function(jqXHR, textStatus) {
           console.log('Request failed: ' + textStatus);
@@ -128,7 +128,8 @@ $(function() {
           data: {'done': false}
         })
         .done(function(task) {
-          console.log(task);
+          var newPoints = $('#collapse_' + listId + ' span').text() - task.points;
+          $('#collapse_' + listId + ' span').html(newPoints);
         })
         .fail(function(jqXHR, textStatus) {
           console.log('Request failed: ' + textStatus);

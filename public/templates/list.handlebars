@@ -1,5 +1,5 @@
-  {{#each lists}}
-  <div class="col-sm-4 list" data-list="{{ this._id }}">
+{{#each lists}}
+  <div class="col-md-4 list" data-list="{{ this._id }}">
     <div class="well">
       <div id="{{ this._id }}" class="table table-hover">
         <div>
@@ -28,10 +28,10 @@
                   </div>
                   <input name="task" type="text" placeholder="New Task..." />
                   <input name="listId" type="hidden" value="{{ this._id }}">
-                  {{!-- <div class="input-group-addon"><button type="submit" class="btn btn-success btn-sm">Save</button></div> --}}
                 </div>
               </div>
             </form>
+            <div>Total points accumulated: <span></span></div>
           </div>
         </div>
       </div>
