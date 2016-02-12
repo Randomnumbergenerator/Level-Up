@@ -14,6 +14,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+p {
+  text-align: center; 
+}
+
 .well {
 	background-color: #15a6d9;
 	 /*A3BFA8*/
@@ -30,6 +35,7 @@ h1 {
 .btn {
   background-color: #15a6d9;
   color: orange;
+  margin: 5px;
 }
 
 .btn:hover {
@@ -37,7 +43,12 @@ h1 {
   color: #15a6d9;
 }
 
+author {
+  color: orange;
+}
+
 input {
+  width: 100%;
   padding: 10px;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
@@ -67,6 +78,7 @@ input {
 
 #quote{
   color: #15a6d9;
+  text-align: center;
 }
 
 #lname {
