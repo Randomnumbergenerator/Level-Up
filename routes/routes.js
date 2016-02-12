@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
           listArr.push(listsId);
         }
         taskQuery
-          .where('listId').in(listArr)
+          .where('listId').in (listArr)
           .exec(function(err, tasks) {
 
             res.render('profile', {
