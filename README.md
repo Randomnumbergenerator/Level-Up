@@ -22,7 +22,11 @@ Future installments of this revolutionary application will focus on the gaming c
 
 We would like to install the ability to share to-do lists with multiply users. Ideally one user could create a list and share it with other users to create a community of productivity.  Anyone could update the list and it would reflect on all other shared lists. 
 
-With the ability to share lists while focusing on the gaming community the points then could translate to rewards for in game characters for what the person accomplished within their community to-do list. Again we would never tell people what to use the points for but one example might be a Dungeon Master giving Hero Points to a player that brought the pizza to the adventure.   
+With the ability to share lists while focusing on the gaming community the points then could translate to rewards for in game characters for what the person accomplished within their community to-do list. Again we would never tell people what to use the points for but one example might be a Dungeon Master giving Hero Points to a player that brought the pizza to the adventure. 
+
+Tech to be 
+- Slack Api (for real time chat and assistance)
+- Api for each gaming genre to give users a head start in planning out adventures or orginizing events.
 
 
 
