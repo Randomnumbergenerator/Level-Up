@@ -1,12 +1,12 @@
 body {
   padding: 50px;
   /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
-   font-family: '8BITWONDERNominal';
-   font-weight: normal;
-   font-style: normal;
+   font-family: '8BITWONDERNominal'; 
+   font-weight: normal; 
+   font-style: normal; 
   /*background-color: #CDE7B0;*/
   background: #e0ffc7 url(http://i.imgur.com/THNh3B9.gif) no-repeat center center fixed;
-  opacity: 0.8;
+  opacity: 0.8; 
   background-size: cover;
   /*position: fixed; */
 
@@ -22,9 +22,9 @@ a {
 
 h1 {
 	font-size: 75px;
-	font-family: '8BITWONDERNominal';
-   font-weight: normal;
-   font-style: normal;
+	font-family: '8BITWONDERNominal'; 
+   font-weight: normal; 
+   font-style: normal; 
    color: orange;
 }
 
@@ -33,7 +33,6 @@ h1 {
   color: orange;
 }
 
-<<<<<<< HEAD
 .btn:hover {
   background-color: orange;
   color: #15a6d9;
@@ -84,8 +83,3 @@ input {
   padding: 17px;
 }
 
-=======
-#quote{
-  color: #15a6d9;
-}
->>>>>>> a569319a260552c6fcc85285d2ebb6f70662722b
