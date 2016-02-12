@@ -46,9 +46,10 @@ $(function() {
           var context = {
             tasks: releventTasks
           };
+          console.log(context);
           $.get('templates/task.handlebars', function(data) {
             var template = Handlebars.compile(data);
-            $('#accordion_' + listId).empty().append(template(context));
+            $('#tasks_' + listId).html(template(context));
             taskListeners();
           }, 'html');
         }
@@ -70,7 +71,7 @@ $(function() {
 
   function listListeners() {
     $('.deleteBtn').click(function() {
-      var listId = $(hhis).data('list-id');
+      var listId = $(this).data('list-id');
       console.log(listId);
       deleteList(listId);
       return false;
@@ -86,7 +87,8 @@ $(function() {
     });
 
     $('.tasks-list').on('show.bs.collapse', function() {
-      var listId = $(this).parent().attr('id');
+      var listId = $(this).parentsUntil('well').attr('id');
+      console.log(listId);
       loadTasks(listId);
     });
   }
