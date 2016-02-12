@@ -14,6 +14,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+p {
+  text-align: center; 
+}
+
 .well {
 	background-color: #15a6d9;
 	 /*A3BFA8*/
@@ -30,11 +35,16 @@ h1 {
 .btn {
   background-color: #15a6d9;
   color: orange;
+  margin: 5px;
 }
 
 .btn:hover {
   background-color: orange;
   color: #15a6d9;
+}
+
+author {
+  color: orange;
 }
 
 input {
@@ -68,6 +78,7 @@ input {
 
 #quote{
   color: #15a6d9;
+  text-align: center;
 }
 
 #lname {
