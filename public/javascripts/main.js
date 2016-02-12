@@ -1,11 +1,11 @@
+var listApi = '/api/lists/';
+var taskApi = '/api/tasks/';
+var quoteApi = 'http://www.stands4.com/services/v2/quotes.php';
+
 $(function() {
 
-  var listApi = '/api/lists/';
-  var taskApi = '/api/tasks/';
-  var quoteApi = 'http://www.stands4.com/services/v2/quotes.php';
-
   $.ajax({
-    method: "GET",
+    method: 'GET',
     url: quoteApi,
     data: {
       uid: '4840',
@@ -16,23 +16,23 @@ $(function() {
     },
     dataType: 'html'
   })
-  .done(function(data){
+  .done(function(data) {
     console.log(data);
     // var oneQuote = Math.floor(Math.random()* (data.length -1)) +1;
     $('#quote').html(data);
   })
   .fail(function(jqXHR, textStatus) {
-    console.log("Request failed: " + textStatus);
+    console.log('Request failed: ' + textStatus);
   });
 
   function loadTasks(listId) {
     $.ajax({
         url: taskApi,
-        method: "GET",
+        method: 'GET',
         data: {
           listId: listId
         },
-        dataType: "JSON"
+        dataType: 'JSON'
       })
       .done(function(tasks) {
         if (tasks !== []) {
@@ -54,7 +54,7 @@ $(function() {
         }
       })
       .fail(function(jqXHR, textStatus) {
-        console.log("Request failed: " + textStatus);
+        console.log('Request failed: ' + textStatus);
       });
   }
 
@@ -77,10 +77,10 @@ $(function() {
     });
 
     $('.newTask').submit(function() {
-      var item = $(this).children("input[name=task]").val();
+      var item = $(this).children('input[name=task]').val();
       console.log(item);
-      var id = $(this).children("input[name=listId]").val();
-      var points = $(this).children("select[name=points]").val();
+      var id = $(this).children('input[name=listId]').val();
+      var points = $(this).children('select[name=points]').val();
       newTask(item, points, id);
       return false;
     });
@@ -99,54 +99,54 @@ $(function() {
       return false;
     });
 
-    $(".task-check").bind('change', function(){
+    $('.task-check').bind('change', function() {
       var taskId = $(this).data('task-id');
       console.log(taskId);
-      if (this.checked){
+      if (this.checked) {
         $.ajax({
           url: taskApi + taskId,
           type: 'PUT',
-          data: {"done": true}
+          data: {'done': true}
         })
         .done(function(task) {
           console.log(task);
         })
         .fail(function(jqXHR, textStatus) {
-          console.log("Request failed: " + textStatus);
+          console.log('Request failed: ' + textStatus);
         });
       }
       else {
         $.ajax({
           url: taskApi + taskId,
           type: 'PUT',
-          data: {"done": false}
+          data: {'done': false}
         })
         .done(function(task) {
           console.log(task);
         })
         .fail(function(jqXHR, textStatus) {
-          console.log("Request failed: " + textStatus);
+          console.log('Request failed: ' + textStatus);
         });
       }
     });
   }
 
-  function newTask(item, points, id){
+  function newTask(item, points, id) {
     $.ajax({
       url: taskApi,
-      method: "POST",
+      method: 'POST',
       data: {
         item: item,
         points: points,
         listId: id
       },
-      dataType: "JSON"
+      dataType: 'JSON'
     })
     .done(function(task) {
       console.log(task);
     })
     .fail(function(jqXHR, textStatus) {
-      console.log("Request failed: " + textStatus);
+      console.log('Request failed: ' + textStatus);
     });
   }
 
@@ -175,7 +175,7 @@ $(function() {
       })
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
-      })
+      });
   }
 
   function deleteList(listId) {
@@ -187,11 +187,11 @@ $(function() {
         dataType: 'JSON'
       })
       .done(function(list) {
-        $($("div").find("[data-list='" + listId + "']")).remove();
+        $($('div').find("[data-list='" + listId + "']")).remove();
       })
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
-      })
+      });
   }
 
   function deleteTask(taskId) {
@@ -204,11 +204,11 @@ $(function() {
         dataType: 'JSON'
       })
       .done(function(list) {
-        $("#" + taskId).remove();
+        $('#' + taskId).remove();
       })
       .fail(function(jqXHR, textStatus) {
         console.log('Request failed: ' + textStatus);
-      })
+      });
   }
 
   listListeners();
