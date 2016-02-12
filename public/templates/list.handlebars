@@ -1,5 +1,5 @@
 {{#each lists}}
-  <div class="col-sm-4 list" data-list="{{ this._id }}">
+  <div class="col-sm-4" data-list="{{ this._id }}">
     <div class="well">
       <div id="{{ this._id }}" class="table table-hover">
         <div data-toggle="collapse" data-target="#accordion_{{ this._id }}" class="clickable">
@@ -7,8 +7,8 @@
           <div class='deleteBtn' id="deletelist" data-list-id="{{ this._id }}">DELETE</div>
           <div colspan="2">
             <form class="form-inline" id="form" name="new_task_form" action="/api/tasks/" method="POST">
-              <input name="task" type="text" placeholder="New Task..." />
-              <input name="listId" type="hidden" value="{{ this._id }}">
+              <input name="task" type="text" id="cat" placeholder="New Task..." />
+              <input name="listId" type="hidden" value="{{ this._id }}" id="cat">
 
                 <select name="points" class="form-control">
                   <option>1</option>

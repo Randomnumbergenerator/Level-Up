@@ -72,6 +72,12 @@ input {
 #lname {
   font-size: 25px;
   text-align: center;
+/*  min-height: 75px;
+  max-height: 75px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 350px;
 }
 
 #deletelist {
@@ -87,3 +93,15 @@ input {
   padding: 17px;
 }
 
+#loginstyle {
+  color: orange;
+}
+
+#list {
+  min-height: 75px;
+  max-height: 75px;
+}
+
+#cat {
+  margin: 10px;
+}
