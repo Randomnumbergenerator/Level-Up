@@ -16,7 +16,7 @@ A user can log in and add a new to-do list. The list populates their screen and 
 The points. Points are arbitrary; they have no value and mean nothing. We refused to tell the user what the points are for and instead gave the user the freedom to invent suitable rewards for whatever they want their points to mean for them. 
 
 
-Future goals
+<h4>Future goals</h4>
 
 Future installments of this revolutionary application will focus on the gaming community. We would like to have premade to-do lists for every type of gaming genre. (Table top, card game, video game, board game). A user could preselect a to-do list to help them get their next gaming event under way. 
 
