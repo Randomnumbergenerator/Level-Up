@@ -34,18 +34,23 @@ $(function() {
         dataType: 'JSON'
       })
       .done(function(tasks) {
+        var points = 0;
         if (tasks !== []) {
           var releventTasks = [];
           for (i =0; i<tasks.length; i++) {
             if (tasks[i].listId == listId) {
               releventTasks.push(tasks[i]);
-            }
+              if (tasks[i].done) {
+                points = points + tasks[i].points;
+                console.log(points);
+              };
+            };
           }
+          $('#collapse_' + listId + ' span').text(points);
 
           var context = {
             tasks: releventTasks
           };
-          console.log(context);
           $.get('templates/task.handlebars', function(data) {
             var template = Handlebars.compile(data);
             $('#tasks_' + listId).html(template(context));
