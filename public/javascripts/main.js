@@ -79,7 +79,6 @@ $(function() {
 
     $('.newTask').submit(function() {
       var item = $(this).find('input[name=task]').val();
-      console.log(item);
       var id = $(this).find('input[name=listId]').val();
       var points = $(this).find('select[name=points]').val();
       newTask(item, points, id);
@@ -146,7 +145,13 @@ $(function() {
       dataType: 'JSON'
     })
     .done(function(task) {
-      console.log(task);
+      task = [task];
+      $.get('templates/task.handlebars', function(data) {
+        var context = { tasks: task };
+        var template = Handlebars.compile(data);
+        $('#tasks_' + id).append(template(context));
+        taskListeners();
+      }, 'html');
     })
     .fail(function(jqXHR, textStatus) {
       console.log('Request failed: ' + textStatus);

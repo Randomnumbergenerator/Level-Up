@@ -6,7 +6,7 @@
   <!-- new table input -->
   <form id="newList" action="/api/lists" method="POST">
     <input type="text" name="item" id="listName" placeholder="New to-do list?">
-    <input type="submit" name="submit">
+    {{!-- <input type="submit" name="submit"> --}}
   </form>
   <!-- generated list item -->
   <div id="lists" class="row">
@@ -28,7 +28,6 @@
           <div colspan="2">
             <form class="form-inline newTask" id="form" name="new_task_form" action="/api/tasks/" method="POST">
               <div class="form-group">
-                {{!-- <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label> --}}
                 <div class="input-group">
                   <div class="input-group-addon">
                     <select name="points" class="form-control">
@@ -41,9 +40,7 @@
                   </div>
                   <input name="task" type="text" placeholder="New Task..." />
                   <input name="listId" type="hidden" value="{{ this._id }}">
-                  <div class="input-group-addon">
-                    <button type="submit" class="btn btn-success btn-sm">Save</button>
-                  </div>
+                  {{!-- <div class="input-group-addon"><button type="submit" class="btn btn-success btn-sm">Save</button></div> --}}
                 </div>
               </div>
             </form>
