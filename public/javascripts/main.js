@@ -2,6 +2,28 @@ $(function() {
 
   var listApi = '/api/lists/';
   var taskApi = '/api/tasks/';
+  var quoteApi = 'http://www.stands4.com/services/v2/quotes.php';
+
+  $.ajax({
+    method: "GET",
+    url: quoteApi,
+    data: {
+      uid: '4840',
+      tokenid: 'vdd0Lpy8OmyazMor',
+      searchtype: 'random',
+      query: 'motivation'
+
+    },
+    dataType: 'html'
+  })
+  .done(function(data){
+    console.log(data);
+    // var oneQuote = Math.floor(Math.random()* (data.length -1)) +1;
+    $('#quote').html(data);
+  })
+  .fail(function(jqXHR, textStatus) {
+    console.log("Request failed: " + textStatus);
+  });
 
   function loadTasks(listId) {
     $.ajax({
@@ -13,13 +35,13 @@ $(function() {
         dataType: "JSON"
       })
       .done(function(tasks) {
-        if (tasks !== []) { 
+        if (tasks !== []) {
           var releventTasks = [];
-          for (var i = tasks.length - 1; i >= 0; i--) {
+          for (i = tasks.length - 1; i >= 0; i--) {
             if (tasks[i].listId == listId) {
               releventTasks.push(tasks[i]);
-            };
-          };
+            }
+          }
 
           var context = {
             tasks: releventTasks
@@ -29,7 +51,7 @@ $(function() {
             $('#accordion_' + listId).empty().append(template(context));
             taskListeners();
           }, 'html');
-        };
+        }
       })
       .fail(function(jqXHR, textStatus) {
         console.log("Request failed: " + textStatus);
@@ -44,7 +66,7 @@ $(function() {
     var id = userJson._id;
     createList(name, id);
     return false;
-  })
+  });
 
   function listListeners() {
     $('.deleteBtn').click(function() {
@@ -67,7 +89,7 @@ $(function() {
       var listId = $(this).parent().attr('id');
       loadTasks(listId);
     });
-  };
+  }
 
   function taskListeners() {
     $('.delete').submit(function() {
@@ -174,6 +196,7 @@ $(function() {
 
   function deleteTask(taskId) {
     var taskId = taskId;
+
     $.ajax({
         url: taskApi + taskId,
         method: 'DELETE',
