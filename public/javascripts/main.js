@@ -37,7 +37,7 @@ $(function() {
       .done(function(tasks) {
         if (tasks !== []) {
           var releventTasks = [];
-          for (i = tasks.length - 1; i >= 0; i--) {
+          for (i =0; i<tasks.length; i++) {
             if (tasks[i].listId == listId) {
               releventTasks.push(tasks[i]);
             }
@@ -177,7 +177,7 @@ $(function() {
         };
         $.get('templates/list.handlebars', function(data) {
           var template = Handlebars.compile(data);
-          $('#lists').prepend(template(context));
+          $('#lists').append(template(context));
           listListeners();
         }, 'html');
       })
