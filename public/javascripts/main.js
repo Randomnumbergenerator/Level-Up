@@ -70,7 +70,7 @@ $(function() {
 
   function listListeners() {
     $('.deleteBtn').click(function() {
-      var listId = $(this).data('list-id');
+      var listId = $(hhis).data('list-id');
       console.log(listId);
       deleteList(listId);
       return false;
@@ -90,6 +90,7 @@ $(function() {
       loadTasks(listId);
     });
   }
+
 
   function taskListeners() {
     $('.delete').submit(function() {
