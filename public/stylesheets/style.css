@@ -24,9 +24,10 @@ p {
 	 /*A3BFA8*/
 }
 
+
 h1 {
-	font-size: 75px;
-	font-family: '8BITWONDERNominal'; 
+  font-size: 75px;
+  font-family: '8BITWONDERNominal'; 
    font-weight: normal; 
    font-style: normal; 
    color: orange;
@@ -116,4 +117,8 @@ input {
 
 #cat {
   margin: 10px;
+}
+
+.points {
+  width: 5em !important;
 }
