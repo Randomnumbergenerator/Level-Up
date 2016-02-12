@@ -1,9 +1,9 @@
 {{#each tasks}} 
-  <tr>
+  <tr id="{{ this._id }}">
     <td>
       <div class="checkbox">
         <label>
-          <input type="checkbox">
+          <input class="task-check" type="checkbox" {{#if this.done}}checked="true"{{/if}} data-task-id="{{ this._id }}">
         </label> 
       </div> 
     </td> 
@@ -12,6 +12,11 @@
     </td> 
     <td> 
       {{ this.points }} 
-    </td> 
+    </td>
+    <td>
+      <form class="delete" name="delete-task-form" action="/api/tasks/{{ this._id }}" method="DELETE" data-task-id="{{ this._id }}">
+        <button type="submit" class='btn btn-sm'>DELETE</button>
+      </form>
+    </td>
   </tr> 
 {{/each}}

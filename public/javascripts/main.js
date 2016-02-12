@@ -13,20 +13,23 @@ $(function() {
         dataType: "JSON"
       })
       .done(function(tasks) {
-        var releventTasks = [];
-        for (var i = tasks.length - 1; i >= 0; i--) {
-          if (tasks[i].listId == listId) {
-            releventTasks.push(tasks[i]);
+        if (tasks !== []) { 
+          var releventTasks = [];
+          for (var i = tasks.length - 1; i >= 0; i--) {
+            if (tasks[i].listId == listId) {
+              releventTasks.push(tasks[i]);
+            };
           };
-        };
 
-        var context = {
-          tasks: releventTasks
+          var context = {
+            tasks: releventTasks
+          };
+          $.get('templates/task.handlebars', function(data) {
+            var template = Handlebars.compile(data);
+            $('#accordion_' + listId).empty().append(template(context));
+            taskListeners();
+          }, 'html');
         };
-        $.get('templates/task.handlebars', function(data) {
-          var template = Handlebars.compile(data);
-          $('#accordion_' + listId).empty().append(template(context));
-        }, 'html');
       })
       .fail(function(jqXHR, textStatus) {
         console.log("Request failed: " + textStatus);
@@ -43,15 +46,87 @@ $(function() {
     return false;
   })
 
-  // @todo delete a list
-  function deleteListener() {
+  function listListeners() {
     $('.deleteBtn').click(function() {
       var listId = $(hhis).data('list-id');
       console.log(listId);
       deleteList(listId);
       return false;
-    })
+    });
+
+    $('.newTask').submit(function() {
+      var item = $(this).children("input[name=task]").val();
+      console.log(item);
+      var id = $(this).children("input[name=listId]").val();
+      var points = $(this).children("select[name=points]").val();
+      newTask(item, points, id);
+      return false;
+    });
+
+    $('.tasks-list').on('show.bs.collapse', function() {
+      var listId = $(this).parent().attr('id');
+      loadTasks(listId);
+    });
   };
+
+  function taskListeners() {
+    $('.delete').submit(function() {
+      var taskId = $(this).data('task-id');
+      console.log(taskId);
+      deleteTask(taskId);
+      return false;
+    });
+
+    $(".task-check").bind('change', function(){
+      var taskId = $(this).data('task-id');
+      console.log(taskId);
+      if (this.checked){
+        $.ajax({
+          url: taskApi + taskId,
+          type: 'PUT',
+          data: {"done": true}
+        })
+        .done(function(task) {
+          console.log(task);
+        })
+        .fail(function(jqXHR, textStatus) {
+          console.log("Request failed: " + textStatus);
+        });
+      }
+      else {
+        $.ajax({
+          url: taskApi + taskId,
+          type: 'PUT',
+          data: {"done": false}
+        })
+        .done(function(task) {
+          console.log(task);
+        })
+        .fail(function(jqXHR, textStatus) {
+          console.log("Request failed: " + textStatus);
+        });
+      }
+    });
+  }
+
+  function newTask(item, points, id){
+    $.ajax({
+      url: taskApi,
+      method: "POST",
+      data: {
+        item: item,
+        points: points,
+        listId: id
+      },
+      dataType: "JSON"
+    })
+    .done(function(task) {
+      console.log(task);
+    })
+    .fail(function(jqXHR, textStatus) {
+      console.log("Request failed: " + textStatus);
+    });
+  }
 
   function createList(newListName, userId) {
     var name = newListName;
@@ -73,7 +148,7 @@ $(function() {
         $.get('templates/list.handlebars', function(data) {
           var template = Handlebars.compile(data);
           $('#lists').prepend(template(context));
-          deleteListener();
+          listListeners();
         }, 'html');
       })
       .fail(function(jqXHR, textStatus) {
@@ -85,7 +160,7 @@ $(function() {
     var listId = listId;
     $.ajax({
         url: listApi + listId,
-        method: 'delete',
+        method: 'DELETE',
         data: {},
         dataType: 'JSON'
       })
@@ -97,40 +172,21 @@ $(function() {
       })
   }
 
-
-  $('.tasks-list').on('show.bs.collapse', function() {
-    var listId = $(this).parent().attr('id');
-    console.log(listId);
-    loadTasks(listId);
-  });
-
-  $('.newTask').submit(function() {
-    var item = $(this).children("input[name=task]").val();
-    var id = $(this).children("input[name=listId]").val();
-    var points = $(this).children("select[name=points]").val();
-    newTask(item, points, id);
-    return false;
-  });
-
-  function newTask(item, points, id){
+  function deleteTask(taskId) {
+    var taskId = taskId;
     $.ajax({
-      url: taskApi,
-      method: "POST",
-      data: {
-        item: item,
-        points: points,
-        listId: id
-      },
-      dataType: "JSON"
-    })
-    .done(function(task) {
-      console.log(task);
-    })
-    .fail(function(jqXHR, textStatus) {
-      console.log("Request failed: " + textStatus);
-    });
+        url: taskApi + taskId,
+        method: 'DELETE',
+        data: {},
+        dataType: 'JSON'
+      })
+      .done(function(list) {
+        $("#" + taskId).remove();
+      })
+      .fail(function(jqXHR, textStatus) {
+        console.log('Request failed: ' + textStatus);
+      })
   }
 
-  // loadLists();
-  deleteListener();
+  listListeners();
 });
