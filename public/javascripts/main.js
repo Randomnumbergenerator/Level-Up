@@ -78,10 +78,10 @@ $(function() {
     });
 
     $('.newTask').submit(function() {
-      var item = $(this).children('input[name=task]').val();
+      var item = $(this).find('input[name=task]').val();
       console.log(item);
-      var id = $(this).children('input[name=listId]').val();
-      var points = $(this).children('select[name=points]').val();
+      var id = $(this).find('input[name=listId]').val();
+      var points = $(this).find('select[name=points]').val();
       newTask(item, points, id);
       return false;
     });
